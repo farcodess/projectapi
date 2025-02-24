@@ -1,0 +1,1 @@
+<img width="45px" src="/img/wk.png" alt="logo">

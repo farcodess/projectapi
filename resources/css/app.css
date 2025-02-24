@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+
+     /* Hide scrollbar for Chrome, Safari and Opera */
+     .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
+    html,
+    body {
+        overflow-x: hidden;
+    }
+    
+   
+
+    .bg-content {
+        background: rgb(0, 49, 82);
+        background: linear-gradient(
+            0deg,
+            rgba(0, 49, 82, 1) 0%,
+            rgba(26, 126, 136, 1) 100%
+        );
+    }
+    
+    .text-shadow {
+        text-shadow: 0 0 3px #6aff36;
+    }
+
+    #dropdownMenu {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+    }
+
+    #dropdownMenu.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .fade {
+        display: block; /* Tampilkan slide yang aktif */
+        opacity: 1; /* Opacity penuh untuk slide yang aktif */
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @keyframes fade-out {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+    /* Tambahkan animasi untuk tombol next dan prev */
+    .prev,
+    .next {
+        user-select: none;
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+
+    .next {
+        right: 0;
+    }
+
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    
+}
+
+
+[x-cloak] {
+    display: none;
+}
