@@ -9,8 +9,63 @@
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
+                     @if (Auth::id())
+                        @php
+                            $usertype = Auth::user()->usertype;
+                        @endphp
 
-                <!-- Navigation Links -->
+                        @if ($usertype == 'guru')
+                  <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+
+                        <x-nav-link href="{{ route('input-nilai') }}" :active="request()->routeIs('input-nilai')">
+                            {{ __('Input-Nilai') }}
+                        </x-nav-link>
+
+                        <x-nav-link href="{{ route('hasil-nilai') }}" :active="request()->routeIs('hasil-nilai')">
+                            {{ __('Hasil-Nilai') }}
+                        </x-nav-link>
+                  </div>
+                       @elseif ($usertype == 'user')
+     
+                  <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                         <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                             {{ __('Dashboard') }}      
+                         </x-nav-link>
+
+                         <x-nav-link href="{{ route('hasil-nilai') }}" :active="request()->routeIs('hasil-nilai')">
+                             {{ __('Hasil-Nilai') }}
+                         </x-nav-link>
+                  </div>
+                       @elseif ($usertype == 'admin')
+                    <!-- Navigation Links for Admin -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                         <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                             {{ __('Admin Dashboard') }}
+                         </x-nav-link>
+                         <x-nav-link href="{{ route('akun') }}" :active="request()->routeIs('akun')">
+                             {{ __('Manage Account') }}
+                         </x-nav-link>
+                    </div>
+
+                        @else
+                            <script>
+                                window.location.href = "{{ route('login') }}";
+                            </script>
+                        @endif
+                    @else
+                        <script>
+                            window.location.href = "{{ route('login') }}";
+                        </script>
+                    @endif
+               </div>
+            
+                    
+
+
+                {{-- <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -19,8 +74,13 @@
                     <x-nav-link href="{{ route('input-nilai') }}" :active="request()->routeIs('input-nilai')">
                         {{ __('Input-Nilai') }}
                     </x-nav-link>
+
+                    <x-nav-link href="{{ route('hasil-nilai') }}" :active="request()->routeIs('hasil-nilai')">
+                        {{ __('Hasil-Nilai') }}
+                    </x-nav-link>
                 </div>
             </div>
+             --}}
 
         
 
