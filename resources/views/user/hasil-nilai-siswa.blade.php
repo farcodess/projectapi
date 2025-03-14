@@ -44,38 +44,38 @@
                     </thead>
                     <tbody>
                      @php
-    // Ensure $all_siswa is an array or a collection
-    if (!is_countable($all_siswa)) {
-        $all_siswa = [];
-    }
-@endphp
-@if (count($all_siswa) > 0)
-    @foreach ($all_siswa as $item)
-        <tr>
-            <td>{{$loop->iteration}}</td>
-            <td>{{$item->nis}}</td>
-            <td>{{$item->nama}}</td>
-            <td>{{$item->rombel}}</td>
-            <td>{{$item->mapel}}</td>
-            <td>{{$item->guru}}</td>
-            <td style="text-align: center;">{{$item->nilaiharian}}</td>
-            <td style="text-align: center;">{{$item->ah1}}</td>
-            <td style="text-align: center;">{{$item->ah2}}</td>
-            <td style="text-align: center;">{{$item->nilaiakhir}}</td>
-            <td style="color: {{ $item->nilaikeseluruhan < 75 ? 'red' : 'green' }}; text-align: center;">
-            {{ $item->nilaikeseluruhan }}
-            </td>
-        </tr>    
-    @endforeach
-@else
-    <tr>
-        <td colspan="8">No User Found!</td>
-    </tr>
-@endif
+                
+                    if (!is_countable($all_siswa)) {
+                        $all_siswa = [];
+                    }
+                @endphp
+                @if (count($all_siswa) > 0)
+                    @foreach ($all_siswa as $item)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$item->nis}}</td>
+                            <td>{{$item->nama}}</td>
+                            <td>{{$item->rombel}}</td>
+                            <td>{{$item->mapel}}</td>
+                            <td>{{$item->guru}}</td>
+                            <td style="text-align: center;">{{$item->nilaiharian}}</td>
+                            <td style="text-align: center;">{{$item->ah1}}</td>
+                            <td style="text-align: center;">{{$item->ah2}}</td>
+                            <td style="text-align: center;">{{$item->nilaiakhir}}</td>
+                            <td style="color: {{ $item->nilaikeseluruhan < 75 ? 'red' : 'green' }}; text-align: center;">
+                            {{ $item->nilaikeseluruhan }}
+                            </td>
+                        </tr>    
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="8">No User Found!</td>
+                    </tr>
+                @endif
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </x-app-layout>

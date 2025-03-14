@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
-    public function loadAllSiswa()
+    public function loadAllAkun()
     {
         $all_siswa = User::all();
         return view('admin.akun', compact('all_siswa'));
     }
 
-    public function loadEditForm($id){
+    public function loadEditAkun($id){
         $siswa = User::find($id);
 
         return view('admin.edit-akun', compact('siswa'));
@@ -23,35 +23,35 @@ class AccountController extends Controller
         
   
     
-    public function EditSiswa(Request $request){
+    public function EditAkun(Request $request){
        
         $request->validate([
-            'nama' => 'required|string',
+            'name' => 'required|string',
             'usertype' => 'required|string',
             'email' => 'required|string',
-            'password' => 'required|string',
+           
         ]);
         try {
             
             $update_siswa = User::where('id',$request->siswa_id)->update([
-                'nama' => $request->name,
+                'name' => $request->name,
                 'usertype' => $request->usertype,
                 'email' => $request->email,
-                'password' => $request->password,
+                
             ]);
-            return redirect('/admin.akun')->with('success','Nilai Updated Successfully');
+            return redirect('/akun')->with('success','Akun Updated Successfully');
             } catch (\Exception $e) {
-                return redirect('/edit/akun')->with('fail',$e->getMessage());
+                return redirect('/edit/akun/')->with('fail',$e->getMessage());
             }
     
     }
     
-    public function deleteSiswa($id){
+    public function deleteAkun($id){
         try {
             User::where('id', $id)->delete();
-            return redirect('/admin.akun')->with('success', 'Siswa Deleted successfully!');
+            return redirect('/akun')->with('success', 'Akun Deleted successfully!');
         } catch (\Exception $e) {
-            return redirect('/admin.akun')->with('fail', $e->getMessage());
+            return redirect('/akun')->with('fail', $e->getMessage());
         }
 
 

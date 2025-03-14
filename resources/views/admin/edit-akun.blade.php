@@ -16,14 +16,14 @@
                 <span class="alert alert-danger p-2">{{Session::get('fail')}}</span>
             @endif
             <div class="card-body">
-                <form action="{{ route('EditSiswa')}}" method="post">
+                <form action="{{ route('EditAkun')}}" method="post">
                     @csrf
                     <input type="hidden" name="siswa_id" id="" value="{{$siswa->id}}">
                   
                     <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Nama</label>
-                        <input type="text" name="nama" class="form-control" value="{{$siswa->nama}}" id="formGroupExampleInput2" placeholder="Enter Nama">
-                        @error('nama')
+                        <input type="text" name="name" class="form-control" value="{{$siswa->name}}" id="formGroupExampleInput2" placeholder="Enter Nama">
+                        @error('name')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>

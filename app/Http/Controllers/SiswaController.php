@@ -10,7 +10,7 @@ class SiswaController extends Controller
     public function loadAllSiswa(){
     $all_siswa = Siswa::all();
 
-    // Periksa peran user yang sedang login
+    
     if (Auth::user()->usertype == 'guru') {
         return view('guru.hasil-nilai', compact('all_siswa'));
     } elseif (Auth::user()->usertype == 'admin') {
@@ -18,7 +18,6 @@ class SiswaController extends Controller
     } elseif (Auth::user()->usertype == 'user') {
         return view('user.hasil-nilai-siswa', compact('all_siswa'));
     } else {
-        // Jika user tidak memiliki peran yang valid, redirect ke halaman lain atau tampilkan pesan error
         return redirect()->route('dashboard')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
     }
 }
@@ -57,49 +56,37 @@ class SiswaController extends Controller
         return view('guru.edit-siswa', compact('siswa'));
     }
     
-    public function EditSiswa(Request $request){
-       
-        $request->validate([
-            'nama' => 'required|string',
-            'rombel' => 'required|string',
-            'mapel' => 'required|string',
-            'guru' => 'required|string',
-            'nilaiharian' => 'required|integer',
-            'ah1' => 'required|integer',
-            'ah2' => 'required|integer',
-            'nilaiakhir' => 'required|integer',
+   public function EditSiswa(Request $request){
+    $request->validate([
+        'nama' => 'required|string',
+        'rombel' => 'required|string',
+        'mapel' => 'required|string',
+        'guru' => 'required|string',
+        'nilaiharian' => 'required|integer',
+        'ah1' => 'required|integer',
+        'ah2' => 'required|integer',
+        'nilaiakhir' => 'required|integer',
+    ]);
+
+    try {
+        $update_siswa = Siswa::where('id', $request->siswa_id)->update([
+            'nama' => $request->nama,
+            'rombel' => $request->rombel,
+            'mapel' => $request->mapel,
+            'guru' => $request->guru,
+            'nilaiharian' => $request->nilaiharian,
+            'ah1' => $request->ah1,
+            'ah2' => $request->ah2,
+            'nilaiakhir' => $request->nilaiakhir,
+            'nilaikeseluruhan' => ($request->nilaiharian * 0.1) + ($request->ah1 * 0.2) + ($request->ah2 * 0.2) + ($request->nilaiakhir * 0.5),
         ]);
-        try {
-            
-            $update_siswa = Siswa::where('id',$request->siswa_id)->update([
-                'nama' => $request->name,
-                'rombel' => $request->rombel,
-                'mapel' => $request->mapel,
-                'guru' => $request->guru,
-                'nilaiharian' => $request->nilaiharian,
-                'ah1' => $request->ah1,
-                'ah2' => $request->ah2,
-                'nilaiakhir' => $request->nilaiakhir, 
-                'nilaikeseluruhan' => ($request->nilaiharian * 0.1) + ($request->ah1 * 0.2) + ($request->ah2 * 0.2) + ($request->nilaiakhir * 0.5),
-            ]);
-            return redirect('/hasil-nilai')->with('success','Nilai Updated Successfully');
-            } catch (\Exception $e) {
-                return redirect('/edit/siswa')->with('fail',$e->getMessage());
-            }
-    
+
+        return redirect('/hasil-nilai')->with('success', 'Nilai Updated Successfully');
+    } catch (\Exception $e) {
+        return redirect('/edit/siswa/' . $request->siswa_id)->with('fail', $e->getMessage());
     }
-    
-    public function deleteSiswa($id){
-        try {
-            Siswa::where('id', $id)->delete();
-            return redirect('/hasil-nilai')->with('success', 'Siswa Deleted successfully!');
-        } catch (\Exception $e) {
-            return redirect('/hasil-nilai')->with('fail', $e->getMessage());
-        }
+}
 
-
-    } 
-    
     //list student
     public function index() { // menampilkan keseluruhan data
       $Nilai = Siswa::latest()->paginate(5);
